@@ -17,26 +17,37 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
-public class FragmentPrincipal extends Fragment  implements onSelectedItemListener{
+public class FragmentPrincipal extends Fragment {
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     public ArrayList<Datos> datos;
-    Adaptador adaptador;
-    onSelectedItemListener listener;
+    private Adaptador adaptador;
+    private onSelectedItemListener listener;
+    private onSelectedItemAdd listenerAdd;
     int pos;
-    SwipeDetector swipeDetector;
+    private SwipeDetector swipeDetector;
+    private FloatingActionButton fab;
+
+
+    public FragmentPrincipal(ArrayList<Datos> datos) {
+        this.datos = datos;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_recycler, container, false);
-        añadirDatos();
+
         adaptador = new Adaptador(datos);
         adaptador.setLongListener(new View.OnLongClickListener() {
             @Override
@@ -127,6 +138,15 @@ public class FragmentPrincipal extends Fragment  implements onSelectedItemListen
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
+
+        fab = v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listenerAdd.onItemAddSelected();
+            }
+        });
+
         return v;
     }
 
@@ -136,22 +156,9 @@ public class FragmentPrincipal extends Fragment  implements onSelectedItemListen
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         listener = (onSelectedItemListener) context;
+        listenerAdd = (onSelectedItemAdd)context;
     }
 
-    public void añadirDatos()
-    {
-        datos = new ArrayList<>();
-        datos.add(new Datos("Sergio", "Ramos Santonja", "676813768","sergio@gmail.com"));
-        datos.add(new Datos("Carlos", "Clemente Bellido", "659478945","carlos@gmail.com"));
-        datos.add(new Datos("Aìtor", "Soto Jimenez", "675221581","aitor@gmail.com"));
-        datos.add(new Datos("Paula", "Valero Ferrandez", "678912528","paula@gmail.com"));
-        datos.add(new Datos("Andrea", "Ramos Santonja", "7548475254","andrea@gmail.com"));
-    }
 
-    @Override
-    public void onItemSelected(Datos datos) {
 
-        this.datos.set(pos, (Datos) getArguments().getParcelable("Datos"));
-        recyclerView.setAdapter(adaptador);
-    }
 }

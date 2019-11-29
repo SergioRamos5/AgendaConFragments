@@ -25,7 +25,7 @@ public class EditFragment extends Fragment {
     private FloatingActionButton fab;
     private Datos datos;
     EditText nombre, apellido, telefono, correo;
-    onSelectedItemListener listener;
+    onSelectedItemEditar listenerEdit;
 
     @Nullable
     @Override
@@ -56,22 +56,9 @@ public class EditFragment extends Fragment {
                 datos.setCorreo(correo.getText().toString());
                 datos.setTelefono(telefono.getText().toString());
 
-                Fragment fragmentPrincipal = new FragmentPrincipal();
-
-                Bundle args = new Bundle();
-
-                fragmentPrincipal.setArguments(args);
-
-                args.putParcelable("Datos", datos);
-                FragmentManager FM = getActivity().getSupportFragmentManager();
-                FragmentTransaction FT = FM.beginTransaction();
-                FT.replace(R.id.fragment_container, fragmentPrincipal);
-                FT.addToBackStack(null);
-                FT.commit();
+                listenerEdit.onItemEditSelected(datos);
             }
         });
-
-
 
        return v;
     }
@@ -79,7 +66,7 @@ public class EditFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        listener = (onSelectedItemListener) context;
+        listenerEdit = (onSelectedItemEditar) context;
     }
 
 }
