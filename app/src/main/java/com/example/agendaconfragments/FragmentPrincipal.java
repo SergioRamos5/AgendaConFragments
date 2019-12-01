@@ -5,12 +5,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +31,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class FragmentPrincipal extends Fragment {
 
     private RecyclerView recyclerView;
@@ -36,8 +43,6 @@ public class FragmentPrincipal extends Fragment {
     int pos;
     private SwipeDetector swipeDetector;
     private FloatingActionButton fab;
-
-
     public FragmentPrincipal(ArrayList<Datos> datos) {
         this.datos = datos;
     }
@@ -154,7 +159,56 @@ public class FragmentPrincipal extends Fragment {
         return v;
     }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
 
+        String str = "";
+
+        switch (item.getItemId())
+        {
+            case R.id.takePhoto:
+                Intent intento = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivityForResult(intento,1);
+                break;
+            case R.id.openGalery:
+                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, 2);
+                break;
+            case R.id.deletePhoto:
+                str = "Borrar Foto";
+                break;
+            case R.id.cancel:
+                str = "Cancelar";
+                break;
+        }
+
+        Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK && requestCode == 2){
+            Uri ruta = data.getData();
+            datos.get(pos).setImagen(bitmapFromUri(ruta));
+            recyclerView.setAdapter(adaptador);
+        }
+        else if (resultCode == RESULT_OK && requestCode == 1)
+        {
+            datos.get(pos).setImagen((Bitmap) data.getExtras().get("data"));
+            recyclerView.setAdapter(adaptador);
+        }
+
+    }
+
+    private Bitmap bitmapFromUri(Uri uri) {
+        ImageView imageViewTemp = new ImageView(getContext());
+        imageViewTemp.setImageURI(uri);
+        BitmapDrawable d = (BitmapDrawable) imageViewTemp.getDrawable();
+        return d.getBitmap();
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {

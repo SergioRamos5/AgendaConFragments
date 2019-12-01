@@ -1,7 +1,11 @@
 package com.example.agendaconfragments;
 
+
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,19 +14,19 @@ public class Datos implements Parcelable {
     private String apellidos;
     private String telefono;
     private String correo;
-
+    private Bitmap imagen;
 
     public Datos() {
     }
 
 
-    public Datos(String nombre, String apellidos, String telefono, String correo) {
-            this.nombre = nombre;
-            this.apellidos = apellidos;
-            this.telefono = telefono;
-            this.correo = correo;
-        }
-
+    public Datos(String nombre, String apellidos, String telefono, String correo, Bitmap imagen) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.imagen = imagen;
+    }
 
     protected Datos(Parcel in) {
         nombre = in.readString();
@@ -43,38 +47,45 @@ public class Datos implements Parcelable {
         }
     };
 
-    public String getNombre () {
-            return nombre;
-        }
+    public String getNombre() {
+        return nombre;
+    }
 
-        public void setNombre (String nombre){
-            this.nombre = nombre;
-        }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-        public String getApellidos () {
-            return apellidos;
-        }
+    public String getApellidos() {
+        return apellidos;
+    }
 
-        public void setApellidos (String apellidos){
-            this.apellidos = apellidos;
-        }
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
-        public String getTelefono () {
-            return telefono;
-        }
+    public String getTelefono() {
+        return telefono;
+    }
 
-        public void setTelefono (String telefono){
-            this.telefono = telefono;
-        }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
-        public String getCorreo () {
-            return correo;
-        }
+    public String getCorreo() {
+        return correo;
+    }
 
-        public void setCorreo (String correo){
-            this.correo = correo;
-        }
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
+    public Bitmap getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Bitmap imagen) {
+        this.imagen = imagen;
+    }
 
     @Override
     public int describeContents() {

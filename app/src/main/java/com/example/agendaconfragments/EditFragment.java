@@ -4,10 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +31,7 @@ public class EditFragment extends Fragment {
     private Datos datos;
     EditText nombre, apellido, telefono, correo;
     onSelectedItemEditar listenerEdit;
+    ImageView imagen;
     String hola;
     @Nullable
     @Override
@@ -38,8 +44,9 @@ public class EditFragment extends Fragment {
         apellido = v.findViewById(R.id.apellido_edit);
         telefono = v.findViewById(R.id.telefono_edit);
         correo = v.findViewById(R.id.email_edit);
+        imagen = v.findViewById(R.id.contacto_edit);
 
-
+        imagen.setOnCreateContextMenuListener(this);
         datos = getArguments().getParcelable("Datos");
 
         nombre.setText(datos.getNombre());
@@ -70,4 +77,34 @@ public class EditFragment extends Fragment {
         listenerEdit = (onSelectedItemEditar) context;
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater menuInflater = new MenuInflater(v.getContext());
+        menuInflater.inflate(R.menu.menu_contextual,menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        String str = "";
+
+        switch (item.getItemId())
+        {
+            case R.id.takePhoto:
+                str = "Hacer Foto";
+                break;
+            case R.id.openGalery:
+                str = "Abrir Galeria";
+                break;
+            case R.id.deletePhoto:
+                str = "Borrar Foto";
+                break;
+            case R.id.cancel:
+                str = "Cancelar";
+                break;
+        }
+
+        Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+        return true;
+    }
 }
