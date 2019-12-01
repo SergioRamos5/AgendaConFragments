@@ -81,13 +81,13 @@ public class MainActivity extends FragmentActivity implements onSelectedItemList
         datos.add(new Datos("Andrea", "Ramos Santonja", "7548475254","andrea@gmail.com"));
     }
 
-
     @Override
-    public void onItemAddSelected() {
+    public void onItemAddSelected(Datos datos) {
+        this.datos.add(datos);
         FragmentManager FM = getSupportFragmentManager();
         FragmentTransaction FT  = FM.beginTransaction();
-        Fragment addfragment = new AddFragment();
-        FT.replace(R.id.fragment_container, addfragment);
+        Fragment fragment = new FragmentPrincipal(this.datos);
+        FT.replace(R.id.fragment_container, fragment);
         FT.commit();
     }
 }

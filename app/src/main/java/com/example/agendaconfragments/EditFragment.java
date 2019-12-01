@@ -26,7 +26,7 @@ public class EditFragment extends Fragment {
     private Datos datos;
     EditText nombre, apellido, telefono, correo;
     onSelectedItemEditar listenerEdit;
-
+    String hola;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class EditFragment extends Fragment {
         apellido.setText(datos.getApellidos());
         correo.setText(datos.getCorreo());
         telefono.setText(datos.getTelefono());
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {

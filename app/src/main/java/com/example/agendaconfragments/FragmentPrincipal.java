@@ -143,7 +143,11 @@ public class FragmentPrincipal extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listenerAdd.onItemAddSelected();
+                FragmentManager FM = getActivity().getSupportFragmentManager();
+                FragmentTransaction FT  = FM.beginTransaction();
+                Fragment addfragment = new AddFragment();
+                FT.replace(R.id.fragment_container, addfragment);
+                FT.commit();
             }
         });
 
