@@ -78,11 +78,11 @@ public class MainActivity extends FragmentActivity implements onSelectedItemList
     public void añadirDatos()
     {
         datos = new ArrayList<>();
-        datos.add(new Datos("Sergio", "Ramos Santonja", "676813768","sergio@gmail.com", BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher_foreground)));
-        datos.add(new Datos("Carlos", "Clemente Bellido", "659478945","carlos@gmail.com",BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher_foreground)));
-        datos.add(new Datos("Aìtor", "Soto Jimenez", "675221581","aitor@gmail.com",BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher_foreground)));
-        datos.add(new Datos("Paula", "Valero Ferrandez", "678912528","paula@gmail.com",BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher_foreground)));
-        datos.add(new Datos("Andrea", "Ramos Santonja", "7548475254","andrea@gmail.com",BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_launcher_foreground)));
+        datos.add(new Datos("Sergio", "Ramos Santonja", "676813768","sergio@gmail.com"));
+        datos.add(new Datos("Carlos", "Clemente Bellido", "659478945","carlos@gmail.com"));
+        datos.add(new Datos("Aìtor", "Soto Jimenez", "675221581","aitor@gmail.com"));
+        datos.add(new Datos("Paula", "Valero Ferrandez", "678912528","paula@gmail.com"));
+        datos.add(new Datos("Andrea", "Ramos Santonja", "7548475254","andrea@gmail.com"));
     }
 
     @Override

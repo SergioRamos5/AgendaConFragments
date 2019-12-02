@@ -20,12 +20,11 @@ public class Datos implements Parcelable {
     }
 
 
-    public Datos(String nombre, String apellidos, String telefono, String correo, Bitmap imagen) {
+    public Datos(String nombre, String apellidos, String telefono, String correo) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.correo = correo;
-        this.imagen = imagen;
     }
 
     protected Datos(Parcel in) {
