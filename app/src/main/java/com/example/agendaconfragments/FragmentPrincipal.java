@@ -192,7 +192,9 @@ public class FragmentPrincipal extends Fragment {
 
         if(resultCode == RESULT_OK && requestCode == 2){
             Uri ruta = data.getData();
-            datos.get(pos).setImagen(bitmapFromUri(ruta));
+            Bitmap b = bitmapFromUri(ruta);
+            datos.get(pos).setImagen(Bitmap.createScaledBitmap(b, 100,100, true));
+
             recyclerView.setAdapter(adaptador);
         }
         else if (resultCode == RESULT_OK && requestCode == 1)
