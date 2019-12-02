@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,9 @@ public class MainActivity extends FragmentActivity implements onSelectedItemList
         setContentView(R.layout.activity_main);
 
         añadirDatos();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
         FragmentManager FM = getSupportFragmentManager();
         FragmentTransaction FT  = FM.beginTransaction();
