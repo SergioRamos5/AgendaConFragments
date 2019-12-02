@@ -10,9 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Holder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
     TextView nombre, apellidos, correo, telefono;
     Datos datos;
+    OnClickImagen listenerImgane;
     ImageView imagen;
 
     public Holder(@NonNull View itemView) {
@@ -24,7 +25,7 @@ public class Holder extends RecyclerView.ViewHolder implements View.OnCreateCont
         telefono = itemView.findViewById(R.id.Telefono);
         correo = itemView.findViewById(R.id.Correo);
         imagen = itemView.findViewById(R.id.Imagen);
-        imagen.setOnCreateContextMenuListener(this);
+        imagen.setOnClickListener(this);
 
     }
 
@@ -34,13 +35,19 @@ public class Holder extends RecyclerView.ViewHolder implements View.OnCreateCont
         apellidos.setText(datos.getApellidos());
         telefono.setText(datos.getTelefono());
         correo.setText(datos.getCorreo());
-        imagen.setImageBitmap(datos.getImagen());
+        if (datos.getImagen() != null)
+            imagen.setImageBitmap(datos.getImagen());
+    }
+
+
+    public void ClickImagen(OnClickImagen listenerImgane)
+    {
+        if(listenerImgane != null) this.listenerImgane = listenerImgane;
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        MenuInflater menuInflater = new MenuInflater(v.getContext());
-        menuInflater.inflate(R.menu.menu_contextual,menu);
+    public void onClick(View v) {
+        if (listenerImgane != null)
+            listenerImgane.onClickImagen(v);
     }
-
 }

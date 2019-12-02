@@ -21,6 +21,7 @@ public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickL
     View.OnClickListener listener;
     View.OnLongClickListener longListener;
     View.OnTouchListener listenerTouch;
+    OnClickImagen listenerImagen;
 
     public Adaptador(ArrayList<Datos> datos) {
         this.datos = datos;
@@ -34,6 +35,12 @@ public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickL
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
         view.setOnTouchListener(this);
+        holder.ClickImagen(new OnClickImagen() {
+            @Override
+            public void onClickImagen(View v) {
+                listenerImagen.onClickImagen(view);
+            }
+        });
         return holder;
     }
 
@@ -82,5 +89,10 @@ public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickL
         if (listenerTouch != null)
             listenerTouch.onTouch(view, motionEvent);
         return false;
+    }
+
+    public void ClickImagen(OnClickImagen listenerImagen)
+    {
+        if (listenerImagen != null) this.listenerImagen = listenerImagen;
     }
 }

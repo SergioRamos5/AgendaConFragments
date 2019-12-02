@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,7 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentPrincipal extends Fragment {
 
     private RecyclerView recyclerView;
-    public ArrayList<Datos> datos;
+    public final ArrayList<Datos> datos;
     private Adaptador adaptador;
     private onSelectedItemListener listener;
     private onSelectedItemAdd listenerAdd;
@@ -134,11 +135,46 @@ public class FragmentPrincipal extends Fragment {
                 {
                     pos = recyclerView.getChildAdapterPosition(view);
                     listener.onItemSelected(datos.get(pos));
-
                 }
             }
         });
-        recyclerView = (RecyclerView) v.findViewById(R.id.recycler);
+
+        adaptador.ClickImagen(new OnClickImagen() {
+            @Override
+            public void onClickImagen(View v) {
+                pos = recyclerView.getChildAdapterPosition(v);
+
+                PopupMenu popupMenu = new PopupMenu(getContext(), v);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_contextual, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId())
+                        {
+                            case R.id.takePhoto:
+                                Intent intento = new Intent("android.media.action.IMAGE_CAPTURE");
+                                startActivityForResult(intento,1);
+                                break;
+                            case R.id.openGalery:
+                                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                                startActivityForResult(gallery, 2);
+                                break;
+                            case R.id.deletePhoto:
+                                datos.get(pos).setImagen(null);
+                                recyclerView.setAdapter(adaptador);
+                                break;
+                            case R.id.cancel:
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
+        recyclerView = v.findViewById(R.id.recycler);
         recyclerView.setAdapter(adaptador);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
@@ -159,32 +195,6 @@ public class FragmentPrincipal extends Fragment {
         return v;
     }
 
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-
-        String str = "";
-
-        switch (item.getItemId())
-        {
-            case R.id.takePhoto:
-                Intent intento = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivityForResult(intento,1);
-                break;
-            case R.id.openGalery:
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, 2);
-                break;
-            case R.id.deletePhoto:
-                str = "Borrar Foto";
-                break;
-            case R.id.cancel:
-                str = "Cancelar";
-                break;
-        }
-
-        Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
-        return true;
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -218,7 +228,4 @@ public class FragmentPrincipal extends Fragment {
         listener = (onSelectedItemListener) context;
         listenerAdd = (onSelectedItemAdd)context;
     }
-
-
-
 }
