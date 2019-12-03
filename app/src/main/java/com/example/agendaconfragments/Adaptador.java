@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,25 +14,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickListener,View.OnClickListener, View.OnTouchListener {
+public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickListener,View.OnClickListener, View.OnTouchListener, Filterable {
 
     Holder holder;
     Context context;
-    ArrayList<Datos> datos;
+    ArrayList<Datos> datos, datosFull;
     View.OnClickListener listener;
     View.OnLongClickListener longListener;
     View.OnTouchListener listenerTouch;
     OnClickImagen listenerImagen;
+    Filter filter;
+    View view;
+
 
     public Adaptador(ArrayList<Datos> datos) {
         this.datos = datos;
+        datosFull = new ArrayList<>(datos);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.holder, parent,false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.holder, parent,false);
+
+        if (Utilidades.visualizacion == Utilidades.PARRILLA)
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.holder_parrilla, parent,false);
+
+
         holder = new Holder(view);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
@@ -95,4 +107,44 @@ public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickL
     {
         if (listenerImagen != null) this.listenerImagen = listenerImagen;
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return  ContactosFilter;
+    }
+
+    private Filter ContactosFilter = new Filter() {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence seleccion) {
+
+
+            List<Datos> datosFiltrados = new ArrayList<>();
+
+            if (seleccion == null ||seleccion.length() == 0) datosFiltrados = datosFull;
+            else if (seleccion.equals("Todo")) datosFiltrados = datosFull;
+            else {
+                for (Datos d : datosFull)
+                {
+                    if (seleccion.equals("Amigos") && d.isAmigos()) datosFiltrados.add(d);
+                    else if (seleccion.equals("Familiar") && d.isFamilia()) datosFiltrados.add(d);
+                    else if (seleccion.equals("Trabajo") && d.isTrabajo())datosFiltrados.add(d);
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = datosFiltrados;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            datos.clear();
+            datos.addAll((List)results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 }

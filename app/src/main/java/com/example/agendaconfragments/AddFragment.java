@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ public class AddFragment extends Fragment {
     private FloatingActionButton fab;
     EditText nombre, apellido, correo, telefono;
     onSelectedItemAdd listenerAdd;
+    RadioButton amigos, trabajo, familia;
 
     @Nullable
     @Override
@@ -32,6 +34,9 @@ public class AddFragment extends Fragment {
         apellido = v.findViewById(R.id.eT_Apellido);
         correo = v.findViewById(R.id.eT_email);
         telefono = v.findViewById(R.id.eT_Telefono);
+        familia = v.findViewById(R.id.rB_Familia);
+        amigos = v.findViewById(R.id.rB_Amigos);
+        trabajo = v.findViewById(R.id.rB_Trabajo);
 
         fab = v.findViewById(R.id.fab1);
 
@@ -42,6 +47,9 @@ public class AddFragment extends Fragment {
                 datos.setApellidos(apellido.getText().toString());
                 datos.setTelefono(telefono.getText().toString());
                 datos.setCorreo(correo.getText().toString());
+                datos.setAmigos(amigos.isChecked());
+                datos.setFamilia(familia.isChecked());
+                datos.setTrabajo(trabajo.isChecked());
 
                 listenerAdd.onItemAddSelected(datos);
             }

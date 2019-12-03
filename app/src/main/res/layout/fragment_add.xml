@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/parteArriba"
-            android:layout_weight="0.6"
+            android:layout_weight="0.7"
             android:background="#F9E1B7"
             android:orientation="horizontal">
             <ImageView
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/parteAbajo"
-            android:layout_weight="0.4"
+            android:layout_weight="0.3"
             android:background="@android:color/white"
             android:orientation="horizontal">
             <TextView

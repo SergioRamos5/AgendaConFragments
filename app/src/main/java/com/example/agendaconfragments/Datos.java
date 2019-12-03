@@ -15,6 +15,9 @@ public class Datos implements Parcelable {
     private String telefono;
     private String correo;
     private Bitmap imagen;
+    private boolean amigos;
+    private boolean familia;
+    private boolean trabajo;
 
     public Datos() {
     }
@@ -25,6 +28,9 @@ public class Datos implements Parcelable {
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.correo = correo;
+        amigos = false;
+        trabajo = false;
+        familia = false;
     }
 
     protected Datos(Parcel in) {
@@ -84,6 +90,30 @@ public class Datos implements Parcelable {
 
     public void setImagen(Bitmap imagen) {
         this.imagen = imagen;
+    }
+
+    public boolean isAmigos() {
+        return amigos;
+    }
+
+    public void setAmigos(boolean amigos) {
+        this.amigos = amigos;
+    }
+
+    public boolean isFamilia() {
+        return familia;
+    }
+
+    public void setFamilia(boolean familia) {
+        this.familia = familia;
+    }
+
+    public boolean isTrabajo() {
+        return trabajo;
+    }
+
+    public void setTrabajo(boolean trabajo) {
+        this.trabajo = trabajo;
     }
 
     @Override

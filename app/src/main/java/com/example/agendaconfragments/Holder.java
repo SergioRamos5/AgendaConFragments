@@ -31,12 +31,21 @@ public class Holder extends RecyclerView.ViewHolder implements View.OnClickListe
 
     public void bind(Datos datos, int pos) {
 
-        nombre.setText(datos.getNombre());
-        apellidos.setText(datos.getApellidos());
-        telefono.setText(datos.getTelefono());
-        correo.setText(datos.getCorreo());
-        if (datos.getImagen() != null)
-            imagen.setImageBitmap(datos.getImagen());
+        if (Utilidades.visualizacion == Utilidades.LISTA)
+        {
+            nombre.setText(datos.getNombre());
+            apellidos.setText(datos.getApellidos());
+            telefono.setText(datos.getTelefono());
+            correo.setText(datos.getCorreo());
+            if (datos.getImagen() != null)
+                imagen.setImageBitmap(datos.getImagen());
+        }else
+        {
+            nombre.setText(datos.getNombre());
+            if (datos.getImagen() != null)
+                imagen.setImageBitmap(datos.getImagen());
+        }
+
     }
 
 

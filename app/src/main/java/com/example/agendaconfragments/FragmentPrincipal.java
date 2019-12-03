@@ -24,15 +24,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
@@ -40,15 +43,14 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentPrincipal extends Fragment {
 
-    private RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     public final ArrayList<Datos> datos;
-    private Adaptador adaptador;
+    public Adaptador adaptador;
     private onSelectedItemListener listener;
     private onSelectedItemAdd listenerAdd;
     int pos;
     private SwipeDetector swipeDetector;
     private FloatingActionButton fab;
-
 
 
     public FragmentPrincipal(ArrayList<Datos> datos) {
@@ -184,8 +186,12 @@ public class FragmentPrincipal extends Fragment {
         recyclerView = v.findViewById(R.id.recycler);
         recyclerView.setAdapter(adaptador);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
+        // Para poder mostrar el Recycler en forma de Lista o en forma de Parrilla.
+        if (Utilidades.visualizacion == Utilidades.LISTA)
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        else
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
 
         fab = v.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -235,4 +241,7 @@ public class FragmentPrincipal extends Fragment {
         listener = (onSelectedItemListener) context;
         listenerAdd = (onSelectedItemAdd)context;
     }
+
+
+
 }
