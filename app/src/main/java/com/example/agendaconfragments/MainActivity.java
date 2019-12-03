@@ -4,12 +4,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toolbar;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -22,7 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
-public class MainActivity extends FragmentActivity implements onSelectedItemListener, onSelectedItemEditar, onSelectedItemAdd {
+public class MainActivity extends AppCompatActivity implements onSelectedItemListener, onSelectedItemEditar, onSelectedItemAdd {
 
     RecyclerView recyclerView;
     public Adaptador adaptador;
@@ -31,18 +35,35 @@ public class MainActivity extends FragmentActivity implements onSelectedItemList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.drawerlayout);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_launcher_foreground);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         añadirDatos();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
 
         FragmentManager FM = getSupportFragmentManager();
         FragmentTransaction FT  = FM.beginTransaction();
         Fragment fragment = new FragmentPrincipal(datos);
         FT.replace(R.id.fragment_container, fragment);
         FT.commit();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        switch (id)
+        {
+            case android.R.id.home:
+
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 

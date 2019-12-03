@@ -21,6 +21,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentManager;
@@ -44,6 +48,9 @@ public class FragmentPrincipal extends Fragment {
     int pos;
     private SwipeDetector swipeDetector;
     private FloatingActionButton fab;
+
+
+
     public FragmentPrincipal(ArrayList<Datos> datos) {
         this.datos = datos;
     }
@@ -51,8 +58,8 @@ public class FragmentPrincipal extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_recycler, container, false);
+
 
         adaptador = new Adaptador(datos);
         adaptador.setLongListener(new View.OnLongClickListener() {
