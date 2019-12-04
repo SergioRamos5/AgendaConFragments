@@ -42,6 +42,7 @@ public class Holder extends RecyclerView.ViewHolder implements View.OnClickListe
         }else
         {
             nombre.setText(datos.getNombre());
+            apellidos.setText(datos.getApellidos());
             if (datos.getImagen() != null)
                 imagen.setImageBitmap(datos.getImagen());
         }

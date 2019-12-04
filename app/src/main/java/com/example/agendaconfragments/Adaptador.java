@@ -39,22 +39,32 @@ public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickL
         final View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.holder_parrilla, parent,false);
 
         if (Utilidades.visualizacion == Utilidades.PARRILLA)
+        {
             holder = new Holder(view2);
+            view2.setOnClickListener(this);
+            view2.setOnLongClickListener(this);
+            view2.setOnTouchListener(this);
+            holder.ClickImagen(new OnClickImagen() {
+                @Override
+                public void onClickImagen(View v) {
+                        listenerImagen.onClickImagen(view2);
+                }
+            });
+        }
         else
+        {
             holder = new Holder(view);
+            view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
+            view.setOnTouchListener(this);
+            holder.ClickImagen(new OnClickImagen() {
+                @Override
+                public void onClickImagen(View v) {
+                        listenerImagen.onClickImagen(view);
+                }
+            });
+        }
 
-        view.setOnClickListener(this);
-        view.setOnLongClickListener(this);
-        view.setOnTouchListener(this);
-        holder.ClickImagen(new OnClickImagen() {
-            @Override
-            public void onClickImagen(View v) {
-                if (Utilidades.visualizacion == Utilidades.LISTA)
-                    listenerImagen.onClickImagen(view);
-                else
-                    listenerImagen.onClickImagen(view2);
-            }
-        });
         return holder;
     }
 

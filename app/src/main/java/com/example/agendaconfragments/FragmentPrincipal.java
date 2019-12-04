@@ -184,7 +184,7 @@ public class FragmentPrincipal extends Fragment {
         if (Utilidades.visualizacion == Utilidades.LISTA)
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         else
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         fab = v.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

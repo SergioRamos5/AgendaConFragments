@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements onSelectedItemLis
                         fragmentPrincipal.adaptador.getFilter().filter(null);
                         break;
                 }
-                FT.commit();
+                FT.commitNow();
                 return true;
             }
         });
