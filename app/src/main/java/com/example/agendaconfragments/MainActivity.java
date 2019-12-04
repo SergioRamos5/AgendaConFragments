@@ -1,14 +1,10 @@
 package com.example.agendaconfragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
+
 
 
 import androidx.annotation.NonNull;
@@ -18,13 +14,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -32,8 +25,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements onSelectedItemListener, onSelectedItemEditar, onSelectedItemAdd {
 
-    RecyclerView recyclerView;
-    public Adaptador adaptador;
     ArrayList<Datos> datos;
     DrawerLayout drawerLayout;
     FragmentPrincipal fragmentPrincipal;
@@ -47,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements onSelectedItemLis
 
         añadirDatos();
 
-        //crearFragmentPrincipal();
         FragmentManager FM = getSupportFragmentManager();
         FragmentTransaction FT  = FM.beginTransaction();
         Fragment fragment = new FragmentPrincipal(datos);
@@ -134,11 +124,6 @@ public class MainActivity extends AppCompatActivity implements onSelectedItemLis
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onAttachFragment(@NonNull Fragment fragment) {
-        super.onAttachFragment(fragment);
-
-    }
 
     @Override
     public void onItemSelected(Datos datos) {
@@ -182,6 +167,5 @@ public class MainActivity extends AppCompatActivity implements onSelectedItemLis
         getMenuInflater().inflate(R.menu.menu_vista, menu);
         return true;
     }
-
 
 }

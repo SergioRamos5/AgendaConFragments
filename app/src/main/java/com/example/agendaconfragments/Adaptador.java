@@ -1,6 +1,6 @@
 package com.example.agendaconfragments;
 
-import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,14 +19,12 @@ import java.util.List;
 public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickListener,View.OnClickListener, View.OnTouchListener, Filterable {
 
     Holder holder;
-    Context context;
     ArrayList<Datos> datos, datosFull;
     View.OnClickListener listener;
     View.OnLongClickListener longListener;
     View.OnTouchListener listenerTouch;
     OnClickImagen listenerImagen;
-    Filter filter;
-    View view;
+
 
 
     public Adaptador(ArrayList<Datos> datos) {
@@ -37,20 +35,24 @@ public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickL
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.holder, parent,false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.holder, parent,false);
+        final View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.holder_parrilla, parent,false);
 
         if (Utilidades.visualizacion == Utilidades.PARRILLA)
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.holder_parrilla, parent,false);
+            holder = new Holder(view2);
+        else
+            holder = new Holder(view);
 
-
-        holder = new Holder(view);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
         view.setOnTouchListener(this);
         holder.ClickImagen(new OnClickImagen() {
             @Override
             public void onClickImagen(View v) {
-                listenerImagen.onClickImagen(view);
+                if (Utilidades.visualizacion == Utilidades.LISTA)
+                    listenerImagen.onClickImagen(view);
+                else
+                    listenerImagen.onClickImagen(view2);
             }
         });
         return holder;
@@ -105,7 +107,8 @@ public class Adaptador extends RecyclerView.Adapter implements View.OnLongClickL
 
     public void ClickImagen(OnClickImagen listenerImagen)
     {
-        if (listenerImagen != null) this.listenerImagen = listenerImagen;
+        if (listenerImagen != null)
+            this.listenerImagen = listenerImagen;
     }
 
 

@@ -39,10 +39,10 @@ public class EditFragment extends Fragment {
 
     private FloatingActionButton fab;
     private Datos datos;
-    EditText nombre, apellido, telefono, correo;
-    onSelectedItemEditar listenerEdit;
-    ImageView imagen;
-    RadioButton amigos, trabajo, familia;
+    private EditText nombre, apellido, telefono, correo;
+    private onSelectedItemEditar listenerEdit;
+    private ImageView imagen;
+    private RadioButton amigos, trabajo, familia;
 
     @Nullable
     @Override

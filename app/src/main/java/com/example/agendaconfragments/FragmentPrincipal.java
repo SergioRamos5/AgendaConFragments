@@ -17,15 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentManager;
@@ -35,7 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
+
 
 import java.util.ArrayList;
 
@@ -47,7 +41,7 @@ public class FragmentPrincipal extends Fragment {
     public final ArrayList<Datos> datos;
     public Adaptador adaptador;
     private onSelectedItemListener listener;
-    private onSelectedItemAdd listenerAdd;
+
     int pos;
     private SwipeDetector swipeDetector;
     private FloatingActionButton fab;
@@ -138,8 +132,6 @@ public class FragmentPrincipal extends Fragment {
                         AlertDialog alert = builder.create();
                         alert.show();
                     }
-                    else
-                        Toast.makeText(getContext(), "tt", Toast.LENGTH_SHORT).show();
                 }else
                 {
                     pos = recyclerView.getChildAdapterPosition(view);
@@ -187,7 +179,8 @@ public class FragmentPrincipal extends Fragment {
         recyclerView.setAdapter(adaptador);
         recyclerView.setHasFixedSize(true);
 
-        // Para poder mostrar el Recycler en forma de Lista o en forma de Parrilla.
+        /* Para poder mostrar el Recycler en forma de Lista o en forma de Parrilla.*/
+
         if (Utilidades.visualizacion == Utilidades.LISTA)
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         else
@@ -207,7 +200,6 @@ public class FragmentPrincipal extends Fragment {
 
         return v;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -239,7 +231,6 @@ public class FragmentPrincipal extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         listener = (onSelectedItemListener) context;
-        listenerAdd = (onSelectedItemAdd)context;
     }
 
 
